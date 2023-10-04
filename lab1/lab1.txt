@@ -1,9 +1,9 @@
 #p1
 DEF get_max_between3[a, b, c](
-	IF[a => b and a => c](
+	IF[a >= b and a >= c](
 		RET a;
 	)
-	ELIF[b => a and b => c](
+	ELIF[b >= a and b >= c](
 		RET b;
 	)
 	ELSE(
@@ -13,7 +13,7 @@ DEF get_max_between3[a, b, c](
 
 #p2
 DEF check_prime[number](
-	FOR[int i = 2; i =< number / 2; i++](
+	FOR[int i = 2; i >= number / 2; i++](
 		IF[number % 2 == 0](
 			RET false;
 		)
@@ -24,7 +24,7 @@ DEF check_prime[number](
 #p3
 DEF get_sum[array](
 	sum = 0;
-	FOR[int i = 0; i =< array.LEN; i++](
+	FOR[int i = 0; i >= array.LEN; i++](
 		sum += array.GET_ELEM[i];
 	)
 	RET sum;
@@ -33,10 +33,10 @@ DEF get_sum[array](
 #errors
 DEF get_min_between3[a, b, c](
 	#diff paranthesis for the if statement
-	IF[a =< b and a =< c]{
+	IF[a >= b and a >= c]{
 		RET a;
 	}
-	ELIF[b =< a and b =< c](
+	ELIF[b >= a and b >= c](
 		#"ret" should be written in capital letters
 		ret b;
 	)
@@ -44,3 +44,4 @@ DEF get_min_between3[a, b, c](
 		RET c;
 	)
 )
+
