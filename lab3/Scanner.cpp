@@ -2,9 +2,9 @@
 
 Scanner::Scanner(const std::string& filePath) : filePath(filePath), symbolTable(100)
 {
-    operators = { "+", "-", "*", "/", "%", "<=", ">=", "==", "!=", "<", ">", "=" };
-    separators = { "{", "}", "(", ")", "[", "]", ":", ";", " ", ",", "\t", "\n", "'", "\"" };
-    reservedWords = { "read", "write", "if", "else", "for", "while", "int", "string", "char", "return", "start", "array" };
+    operators = { "+", "-", "*", "/", "%", "<=", ">=", "==", "!=", "<", ">", "=", "&&", "||", "++", "+="};
+    separators = { "{", "}", "(", ")", "[", "]", "<", ">", ":", ";", ".", " ", ",", "\t", "\n", "'", "\""};
+    reservedWords = { "DEF", "INT", "STR", "CHAR", "IF", "ELSE", "READ", "PRINT", "DO", "WHILE", "FOR", "ARR", "CONST", "LEN", "RET", "ELIF", "GET_ELEM"};
 }
 
 std::string Scanner::readFile()
@@ -34,6 +34,11 @@ std::vector<Pair<std::string, Pair<int,int>>> Scanner::createListOfProgramElems(
         while ((current = content.find_first_of(separatorsString, previous)) != std::string::npos) {
             if (current != previous) {
                 tokens.push_back(content.substr(previous, current - previous));
+            }
+            std::string separator = content.substr(current, 1);
+            // Check if the separator is not a tab character
+            if (separator.find_first_not_of("\t") != std::string::npos) {
+                tokens.push_back(separator);  // Add the separator itself as a token
             }
             previous = current + 1;
         }
@@ -130,7 +135,7 @@ void Scanner::scan()
         }
         else if (std::regex_match(token, std::regex("^([a-zA-Z]|_)[a-zA-Z_0-9]*$"))) {
             symbolTable.add(token);
-                pif.add(Pair<std::string, Pair<int, int>>(token, symbolTable.findPosOfTerm(token)), 1);
+            pif.add(Pair<std::string, Pair<int, int>>(token, symbolTable.findPosOfTerm(token)), 1);
         }
         else {
             Pair<int,int> pairLineColumn = t.getSecond();
