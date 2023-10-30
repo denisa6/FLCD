@@ -20,9 +20,9 @@ void run(const std::string& filePath) {
 
 int main() {
 	run("Input_Output/p1.txt");
-	//run("Input_Output/p2.txt");
-	//run("Input_Output/p3.txt");
-	//run("Input_Output/p1err.txt");
+	run("Input_Output/p2.txt");
+	run("Input_Output/p3.txt");
+	run("Input_Output/p1err.txt");
 
 	return 0;
 }
